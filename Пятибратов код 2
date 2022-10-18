@@ -1,0 +1,53 @@
+using System;
+class Program
+{
+    public struct Point
+    {
+        public int x, y;
+        public Point(int xx, int yy)
+        {
+            x = xx;
+            y = yy;
+
+        }
+        public Point input()
+        {
+            Console.Write("X: ");
+            x = int.Parse(Console.ReadLine());
+            Console.Write("Y: ");
+            y = int.Parse(Console.ReadLine());
+            return new Point(x, y);
+        }
+
+    }
+    public static double[] CalcDistance(Point a, Point b, Point c)
+    {
+        return new double[] { Math.Sqrt(Math.Pow(a.x-b.x,2) + Math.Pow(a.y-b.y,2)),
+            Math.Sqrt(Math.Pow(a.x-c.x,2) + Math.Pow(a.y-c.y,2)),
+            Math.Sqrt(Math.Pow(c.x-b.x,2) + Math.Pow(c.y-b.y,2)),
+            };
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Первая точка.");
+        Point A = new Point().input();
+        Console.WriteLine("Вторая точка.");
+
+        Point B = new Point().input();
+
+        Console.WriteLine("Третья точка.");
+        Point C = new Point().input();
+
+
+        double[] distances = CalcDistance(A, B, C);
+
+        double perimeter = distances.Sum();
+        Console.WriteLine("Периметр: {0:F2}", perimeter);
+
+        double area = Math.Sqrt(perimeter * (perimeter - distances[0]) * (perimeter - distances[1]) * (perimeter - distances[2]));
+        Console.WriteLine("Площадь: {0:F2}", area);
+
+        Console.ReadKey();
+    }
+}
